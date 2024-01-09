@@ -1,11 +1,11 @@
 ---
-title: "Introduction to machine learning with {tidymodels}"
-subtitle: "R/Pharma 2023"
-author: "Dr Nicola Rennie"
+title: "Introduction to machine learning with {tidymodels} in R"
+subtitle: "RSS International Conference 2024"
+author: "Nicola Rennie"
 format:
   LUstyle-revealjs:
     self-contained: true
-    footer: "[nrennie.github.io/r-pharma-2023-tidymodels](https://nrennie.github.io/r-pharma-2023-tidymodels)"
+    footer: "[nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)"
 bibliography: references.bib
 ---
 
@@ -13,11 +13,11 @@ bibliography: references.bib
 
 ## What to expect during this workshop
 
-The workshop will run for *2 hours*.
+The workshop will run for *80 minutes*.
 
 * Combines slides, live coding examples, quiz questions, and exercises for you to participate in.
 
-* Ask questions in the chat throughout!
+* Ask questions throughout!
 
 ## What to expect during this workshop
 
@@ -47,44 +47,30 @@ I hope you end up with more questions than answers after this workshop!
 ::: columns
 ::: {.column}
 
-* GitHub: [github.com/nrennie/r-pharma-2023-tidymodels](https://github.com/nrennie/r-pharma-2023-tidymodels)
+* GitHub: [github.com/nrennie/rss-2024-tidymodels](https://github.com/nrennie/rss-2024-tidymodels)
 
-* Slides: [nrennie.github.io/r-pharma-2023-tidymodels](https://nrennie.github.io/r-pharma-2023-tidymodels)
+* Slides: [nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)
 
 :::
 ::: {.column}
 
-![](images/qr-code-slides.png){fig-align="center" fig-alt="QR code" width=70%}
 
 :::
 
 :::
 
-## Data
+## Requirements
 
-We'll use two data sets in this workshop:
+* Access to R on your laptop or via [Posit Cloud](https://posit.cloud/).
 
-* Examples data: Heart Failure Clinical Records. [archive.ics.uci.edu/dataset/519/heart+failure+clinical+records](http://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records)
+* Installed the following packages:
 
-```{r}
-#| label: read-data-example
-#| echo: true
-#| eval: false
-heart_failure <- readr::read_csv("data/heart_failure.csv") 
-```
+  * tidymodels
+  * glmnet
+  * ggplot2movies
+  * tidyverse (optional)
 
-<br>
-
-* Exercises data: Physical Exercise in Patients with Subacute Stroke (PHYS-STROKE): safety analyses of six-month follow-up of a randomized clinical trial. [doi.org/10.5281/zenodo.3899830](https://doi.org/10.5281/zenodo.3899830)
-
-```{r}
-#| label: read-data-exercises
-#| echo: true
-#| eval: false
-exercises <- readr::read_csv("data/exercises.csv") 
-```
-
-## Quiz!
+## Question!
 
 Have you done machine learning in R before?
 
@@ -210,6 +196,56 @@ There are some core {tidymodels} packages...
 
 Other types of machine learning include *semi-supervised learning* and *reinforcement learning*.
 
+## Data
+
+```{r}
+library(ggplot2movies)
+data(movies)
+```
+
+## Exercise 1
+
+Open `exercises/exercise_01.R` for prompts.
+
+* Install all required packages.
+
+* Load the {ggplot2movies} package.
+
+* Load the `movies` data, and subset to remove the `title`, `budget`, `mpaa`, and `r?` columns.
+
+* Create a binary outcome from the `rating` column, and ensure all binary columns are factors.
+
+* Bonus: explore the data
+
+```{r}
+#| label: ex-1-timer
+countdown::countdown(minutes = 5,
+                    color_border = "#b20e10",
+                    color_text = "#b20e10",
+                    color_running_text = "white",
+                    color_running_background = "#b20e10",
+                    color_finished_text = "#b20e10",
+                    color_finished_background = "white",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+
+## Exercise 1 Solution
+
+```{r}
+library(ggplot2movies)
+data(movies)
+
+model_data <- movies |> 
+  select(rating, year, length, votes, Action:Short) |> 
+  mutate(rating = rating >= 8) |> 
+  mutate(across(Action:Short, as.factor))
+```
+
+See `exercise_solutions/exercise_solutions_01.R` on GitHub for full code.
+
 # Before we start fitting models... {background-color="#D9DBDB"}
 
 ## Training and testing data
@@ -265,25 +301,9 @@ An object that can combine your pre-processing, modelling, and post-processing s
 
 ## Pre-processing in {tidymodels}
 
-### Live demo!
+## Exercise 2 
 
-<br><br>
-
-::: {.fragment}
-
-See `examples/example_01.R` for full code.
-
-:::
-
-## Exercise 1
-
-Open `exercises/exercise_01.R` for prompts.
-
-* Load the {tidyverse} and {tidymodels} packages
-
-* Read in the `exercises.csv` data
-
-* View and explore the data
+Open `exercises/exercise_02.R` for prompts.
 
 * Perform the initial split (choose your own proportion!)
 
@@ -292,8 +312,8 @@ Open `exercises/exercise_01.R` for prompts.
 * Build a recipe and workflow
 
 ```{r}
-#| label: ex-1-timer
-countdown::countdown(minutes = 10,
+#| label: ex-2-timer
+countdown::countdown(minutes = 5,
                     color_border = "#b20e10",
                     color_text = "#b20e10",
                     color_running_text = "white",
