@@ -1,14 +1,20 @@
-set.seed(20231018)
 
 # Specify model -----------------------------------------------------------
 
 
+
 # Tune hyperparameters ----------------------------------------------------
+
+# Fit lots of values using `tune_grid()`
 
 
 # Fit model ---------------------------------------------------------------
 
 
-# Evaluate ----------------------------------------------------------------
 
+# Evaluate ----------------------------------------------------------------
+# select a different metric set using `metric_set` if you want!
+
+
+# create a confusion matrix
 
