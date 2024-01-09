@@ -236,6 +236,7 @@ countdown::countdown(minutes = 5,
 
 ```{r}
 #| eval: false
+#| echo: true
 library(ggplot2movies)
 data(movies)
 
@@ -329,6 +330,8 @@ countdown::countdown(minutes = 5,
 ## Exercise 2 Solution
 
 ```{r}
+#| eval: false
+#| echo: true
 library(tidymodels)
 tidymodels_prefer()
 
