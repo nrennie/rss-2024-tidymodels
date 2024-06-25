@@ -14,6 +14,12 @@ This interactive workshop will introduce some common machine learning techniques
 * Confortable with simple data manipulation in R.
 * Able to access R on your laptop either via local installation or through [Posit Cloud](https://posit.cloud/).
 
+### Packages required
+
+* {tidymodels}
+* {dplyr} (for data wrangling)
+* {openintro} (for data)
+
 ### Useful Links
 
 * GitHub: [github.com/nrennie/rss-2024-tidymodels](https://github.com/nrennie/rss-2024-tidymodels)
