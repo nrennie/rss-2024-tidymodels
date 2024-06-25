@@ -1,49 +1,41 @@
 
 # Load R packages ---------------------------------------------------------
 
-library(tidyverse)
+library(openintro)
+library(dplyr)
 library(tidymodels)
 tidymodels_prefer()
 
 
 # Load data ---------------------------------------------------------------
 
-heart_failure <- read_csv("data/heart_failure.csv")
-heart_failure
+smoke_model_data <- smoking |> 
+  select(-c(amt_weekends, amt_weekdays, type)) |> 
+  mutate(smoke = if_else(smoke == "Yes", 1, 0))
 
-heart_failure <- heart_failure |> 
-  mutate(death = factor(death))
-
-View(heart_failure)
-
-# Inspect variables -------------------------------------------------------
-
-barplot(table(heart_failure$death))
-barplot(table(heart_failure$sex))
-hist(heart_failure$age)
+View(smoke_model_data)
 
 
 # Split into training and testing -----------------------------------------
 
-set.seed(20231018)
-hf_split <- initial_split(heart_failure)
-hf_train <- training(hf_split)
-hf_test <- testing(hf_split)
+set.seed(20240904)
+smoke_split <- initial_split(smoke_model_data)
+smoke_train <- training(smoke_split)
+smoke_test <- testing(smoke_split)
 
 # choose a different split proportion?
-set.seed(20231018)
-hf_split <- initial_split(heart_failure, prop = 0.8)
-hf_train <- training(hf_split)
-hf_test <- testing(hf_split)
+set.seed(20240904)
+smoke_split <- initial_split(smoke_model_data, prop = 0.8)
+smoke_train <- training(smoke_split)
+smoke_test <- testing(smoke_split)
 
 # Create cross validation folds
-hf_folds <- vfold_cv(hf_train, v = 10)
+smoke_folds <- vfold_cv(smoke_train, v = 10)
 
 # Build a recipe ----------------------------------------------------------
 
-hf_recipe <- recipe(death ~ ., data = hf_train) |> 
-  step_dummy(sex) |> 
-  step_normalize(age, serum_creatinine:time)
+smoke_recipe <- recipe(smoke ~ ., data = smoke_train) |> 
+  step_normalize(age)
 
 wf <- workflow() |> 
-  add_recipe(hf_recipe)
+  add_recipe(smoke_recipe)
