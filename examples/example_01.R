@@ -9,11 +9,11 @@ tidymodels_prefer()
 
 # Load data ---------------------------------------------------------------
 
+View(smoking)
+
 smoke_model_data <- smoking |> 
   select(-c(amt_weekends, amt_weekdays, type)) |> 
   mutate(smoke = if_else(smoke == "Yes", 1, 0))
-
-View(smoke_model_data)
 
 
 # Split into training and testing -----------------------------------------
@@ -30,7 +30,7 @@ smoke_train <- training(smoke_split)
 smoke_test <- testing(smoke_split)
 
 # Create cross validation folds
-smoke_folds <- vfold_cv(smoke_train, v = 10)
+hf_folds <- vfold_cv(smoke_train, v = 10)
 
 # Build a recipe ----------------------------------------------------------
 

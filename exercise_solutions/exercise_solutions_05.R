@@ -1,39 +1,39 @@
 
 # Specify model -----------------------------------------------------------
 
-tune_spec_svm <- svm_rbf(cost = tune()) |> 
+ex_svm_tune_spec <- svm_rbf(cost = tune()) |> 
   set_engine("kernlab") |> 
   set_mode("classification")
 
 
 # Tune hyperparameters ----------------------------------------------------
 
-# Fit lots of values
-svm_grid <- tune_grid(
-  add_model(wf, tune_spec_svm),
-  resamples = hf_folds,
+# Fit lots of values using `tune_grid()`
+ex_svm_grid <- tune_grid(
+  add_model(ex_wf, ex_svm_tune_spec),
+  resamples = ex_folds,
   grid = grid_regular(cost(), levels = 20)
 )
 
 # Fit model ---------------------------------------------------------------
 
-highest_roc_auc_svm <- svm_grid |>
+ex_svm_highest_roc_auc <- ex_svm_grid |>
   select_best("roc_auc")
 
-final_svm <- finalize_workflow(
-  add_model(wf, tune_spec_svm),
-  highest_roc_auc_svm
+ex_final_svm <- finalize_workflow(
+  add_model(ex_wf, ex_svm_tune_spec),
+  ex_svm_highest_roc_auc
 )
 
 
 # Evaluate ----------------------------------------------------------------
-
-last_fit(final_svm, hf_split,
+# select a different metric set using `metric_set` if you want!
+last_fit(ex_final_svm, ex_split,
          metrics = metric_set(roc_auc, accuracy, f_meas)) |>
   collect_metrics()
 
 # create a confusion matrix
-last_fit(final_svm, hf_split) |> 
+last_fit(ex_final_svm, ex_split) |> 
   collect_predictions() |> 
-  conf_mat(death, .pred_class) |> 
+  conf_mat(SAE, .pred_class) |> 
   autoplot()

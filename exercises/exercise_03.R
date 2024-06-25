@@ -1,14 +1,23 @@
-set.seed(20231018)
 
-# Specify model -----------------------------------------------------------
-
-
-# Tune hyperparameters ----------------------------------------------------
+# Specify the model -------------------------------------------------------
+# use the `logistic_reg` and `set_engine` functions
 
 
-# Fit model ---------------------------------------------------------------
+# Tune the model ----------------------------------------------------------
+
+# Fit lots of values using `tune_grid()`
+
+# Choose the best value using `select_best()`
 
 
-# Evaluate ----------------------------------------------------------------
+# Fit the final model -----------------------------------------------------
+# use the `finalize_workflow` function and `add_model`
+
+
+# Model evaluation --------------------------------------------------------
+# use `last_fit()` and `collect_metrics()`
+
+
+# which variables were most important?
 
 

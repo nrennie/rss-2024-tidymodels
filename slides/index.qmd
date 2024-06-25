@@ -1,11 +1,17 @@
 ---
+<<<<<<< HEAD
 title: "Introduction to machine learning with {tidymodels}"
-subtitle: "R/Pharma 2023"
+subtitle: "RSS International Conference 2024"
 author: "Dr Nicola Rennie"
+=======
+title: "Introduction to machine learning with {tidymodels} in R"
+subtitle: "RSS International Conference 2024"
+author: "Nicola Rennie"
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 format:
   LUstyle-revealjs:
     self-contained: true
-    footer: "[nrennie.github.io/r-pharma-2023-tidymodels](https://nrennie.github.io/r-pharma-2023-tidymodels)"
+    footer: "[nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)"
 bibliography: references.bib
 ---
 
@@ -13,11 +19,15 @@ bibliography: references.bib
 
 ## What to expect during this workshop
 
-The workshop will run for *2 hours*.
+<<<<<<< HEAD
+The workshop will run for *1 hour and 40 minutes*.
+=======
+The workshop will run for *80 minutes*.
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 
-* Combines slides, live coding examples, quiz questions, and exercises for you to participate in.
+* Combines slides, live coding examples, and exercises for you to participate in.
 
-* Ask questions in the chat throughout!
+* Ask questions throughout!
 
 ## What to expect during this workshop
 
@@ -47,44 +57,53 @@ I hope you end up with more questions than answers after this workshop!
 ::: columns
 ::: {.column}
 
-* GitHub: [github.com/nrennie/r-pharma-2023-tidymodels](https://github.com/nrennie/r-pharma-2023-tidymodels)
+* GitHub: [github.com/nrennie/rss-2024-tidymodels](https://github.com/nrennie/rss-2024-tidymodels)
 
-* Slides: [nrennie.github.io/r-pharma-2023-tidymodels](https://nrennie.github.io/r-pharma-2023-tidymodels)
+* Slides: [nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)
 
 :::
 ::: {.column}
 
-![](images/qr-code-slides.png){fig-align="center" fig-alt="QR code" width=70%}
 
 :::
 
 :::
 
-## Data
+## Requirements
 
-We'll use two data sets in this workshop:
+* Access to R on your laptop or via [Posit Cloud](https://posit.cloud/).
 
-* Examples data: Heart Failure Clinical Records. [archive.ics.uci.edu/dataset/519/heart+failure+clinical+records](http://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records)
+<<<<<<< HEAD
+We'll use data from the {openintro} R package:
 
 ```{r}
 #| label: read-data-example
 #| echo: true
 #| eval: false
-heart_failure <- readr::read_csv("data/heart_failure.csv") 
+library(openintro) 
+View(smoking)
 ```
 
-<br>
-
-* Exercises data: Physical Exercise in Patients with Subacute Stroke (PHYS-STROKE): safety analyses of six-month follow-up of a randomized clinical trial. [doi.org/10.5281/zenodo.3899830](https://doi.org/10.5281/zenodo.3899830)
+You'll also need the following packages:
 
 ```{r}
-#| label: read-data-exercises
+#| label: packages
 #| echo: true
 #| eval: false
-exercises <- readr::read_csv("data/exercises.csv") 
+library(dplyr)
+library(tidymodels)
 ```
 
-## Quiz!
+=======
+* Installed the following packages:
+
+  * tidymodels
+  * glmnet
+  * ggplot2movies
+  * tidyverse (optional)
+
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
+## Question!
 
 Have you done machine learning in R before?
 
@@ -142,41 +161,7 @@ There are some core {tidymodels} packages...
 
 :::
 
-## What is machine learning?
-
-::: columns
-::: {.column}
-
-![](images/ML-01.png){fig-align="center" fig-alt="Machine learning diagram" width=80%} 
-
-:::
-
-::: {.column}
-
-* Learning from data
-
-* Mostly used to make predictions or classifications.
-
-:::
-:::
-
-## What is machine learning?
-
-::: columns
-::: {.column}
-
-![](images/ML-02.png){fig-align="center" fig-alt="Machine learning diagram" width=80%} 
-
-:::
-
-::: {.column}
-
-* Learning from data
-
-* Mostly used to make predictions or classifications.
-
-:::
-:::
+# Before we start fitting models... {background-color="#D9DBDB"}
 
 ## Types of machine learning
 
@@ -210,8 +195,63 @@ There are some core {tidymodels} packages...
 
 Other types of machine learning include *semi-supervised learning* and *reinforcement learning*.
 
+<<<<<<< HEAD
+=======
+## Data
+
+```{r}
+library(ggplot2movies)
+data(movies)
+```
+
+## Exercise 1
+
+Open `exercises/exercise_01.R` for prompts.
+
+* Install all required packages.
+
+* Load the {ggplot2movies} package.
+
+* Load the `movies` data, and subset to remove the `title`, `budget`, `mpaa`, and `r?` columns.
+
+* Create a binary outcome from the `rating` column, and ensure all binary columns are factors.
+
+* Bonus: explore the data
+
+```{r}
+#| label: ex-1-timer
+countdown::countdown(minutes = 5,
+                    color_border = "#b20e10",
+                    color_text = "#b20e10",
+                    color_running_text = "white",
+                    color_running_background = "#b20e10",
+                    color_finished_text = "#b20e10",
+                    color_finished_background = "white",
+                    top = 0,
+                    margin = "1.2em",
+                    font_size = "2em")
+```
+
+
+## Exercise 1 Solution
+
+```{r}
+#| eval: false
+#| echo: true
+library(ggplot2movies)
+data(movies)
+
+model_data <- movies |> 
+  select(rating, year, length, votes, Action:Short) |> 
+  mutate(rating = rating >= 8) |> 
+  mutate(across(Action:Short, as.factor))
+```
+
+See `exercise_solutions/exercise_solutions_01.R` on GitHub for full code.
+
 # Before we start fitting models... {background-color="#D9DBDB"}
 
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 ## Training and testing data
 
 ![](images/TrainTest.png){fig-align="center" fig-alt="Training and testing diagram" width=70%} 
@@ -265,8 +305,9 @@ An object that can combine your pre-processing, modelling, and post-processing s
 
 ## Pre-processing in {tidymodels}
 
-### Live demo!
+## Exercise 2 
 
+<<<<<<< HEAD
 <br><br>
 
 ::: {.fragment}
@@ -279,11 +320,10 @@ See `examples/example_01.R` for full code.
 
 Open `exercises/exercise_01.R` for prompts.
 
-* Load the {tidyverse} and {tidymodels} packages
-
-* Read in the `exercises.csv` data
-
-* View and explore the data
+* Load the `smoking` data
+=======
+Open `exercises/exercise_02.R` for prompts.
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 
 * Perform the initial split (choose your own proportion!)
 
@@ -292,8 +332,12 @@ Open `exercises/exercise_01.R` for prompts.
 * Build a recipe and workflow
 
 ```{r}
+<<<<<<< HEAD
 #| label: ex-1-timer
-countdown::countdown(minutes = 10,
+=======
+#| label: ex-2-timer
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
+countdown::countdown(minutes = 5,
                     color_border = "#b20e10",
                     color_text = "#b20e10",
                     color_running_text = "white",
@@ -305,10 +349,38 @@ countdown::countdown(minutes = 10,
                     font_size = "2em")
 ```
 
-. . . 
+<<<<<<< HEAD
+=======
+## Exercise 2 Solution
 
-See `exercise_solutions/exercise_solutions_01.R` for full code.
+```{r}
+#| eval: false
+#| echo: true
+library(tidymodels)
+tidymodels_prefer()
 
+# Split into training and testing -----------------------------------------
+
+set.seed(20240902)
+movies_split <- initial_split(model_data, prop = 0.7)
+movies_train <- training(movies_split)
+movies_test <- testing(movies_split)
+
+# Create cross validation folds
+movies_folds <- vfold_cv(movies_train, v = 10, repeats = 2)
+
+# Use the `recipe()` function and the `step_*() functions`
+movies_recipe <- recipe(rating ~ ., data = movies_train) |> 
+  step_normalize(c(length, votes))
+
+# create a workflow and add the recipe
+movies_wf <- workflow() |> 
+  add_recipe(movies_recipe)
+```
+
+See `exercise_solutions/exercise_solutions_02.R` on GitHub for full code.
+
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 # LASSO regression {background-color="#D9DBDB"}
 
 ## Linear and logistic regression models
@@ -347,18 +419,6 @@ glm(y ~ x, family = "binomial", data = model_data)
 :::
 
 :::
-
-## Quiz!
-
-How do you choose which explanatory variables to include?
-
-* Using background knowledge
-
-* p-values and correlations between variables
-
-* Stepwise procedures (forward/backward/bi-directional)
-
-* Something else
 
 ## LASSO regression
 
@@ -425,11 +485,11 @@ See [yardstick.tidymodels.org/articles/metric-types.html](https://yardstick.tidy
 
 ::: {.fragment}
 
-See `examples/example_02.R` for full code.
+See `examples/example_03.R` for full code.
 
 :::
 
-## Exercise 2
+## Exercise 3
 
 Open `exercises/exercise_02.R` for prompts. You can also use `examples/example_02.R` as a starting point.
 
@@ -442,7 +502,7 @@ Open `exercises/exercise_02.R` for prompts. You can also use `examples/example_0
 * Evaluate the model performance.
 
 ```{r}
-#| label: ex-2-timer
+#| label: ex-3-timer
 countdown::countdown(minutes = 10,
                     color_border = "#b20e10",
                     color_text = "#b20e10",
@@ -457,19 +517,7 @@ countdown::countdown(minutes = 10,
 
 . . . 
 
-See `exercise_solutions/exercise_solutions_02.R` for full code.
-
-## Quiz!
-
-What was the ROC AUC of your LASSO model?
-
-* Less than 70%
-
-* 70-80%
-
-* 80-90%
-
-* 90-100%
+See `exercise_solutions/exercise_solutions_03.R` for full code.
 
 # Random Forests {background-color="#D9DBDB"}
 
@@ -531,13 +579,13 @@ A tree-like model of decisions and their possible consequences.
 
 ::: {.fragment}
 
-See `examples/example_03.R` for full code.
+See `examples/example_04.R` for full code.
 
 :::
 
-## Exercise 3
+## Exercise 4
 
-Open `exercises/exercise_03.R` for prompts. You can also use `examples/example_03.R` as a starting point.
+Open `exercises/exercise_04.R` for prompts. You can also use `examples/example_04.R` as a starting point.
 
 * Specify a random forest model using `rand_forest()`
 
@@ -546,7 +594,9 @@ Open `exercises/exercise_03.R` for prompts. You can also use `examples/example_0
 * Fit the final model and evaluate it.
 
 ```{r}
-#| label: ex-3-timer
+#| label: ex-4-timer
+<<<<<<< HEAD
+=======
 countdown::countdown(minutes = 10,
                     color_border = "#b20e10",
                     color_text = "#b20e10",
@@ -561,7 +611,7 @@ countdown::countdown(minutes = 10,
 
 . . . 
 
-See `exercise_solutions/exercise_solutions_03.R` for full code. 
+See `exercise_solutions/exercise_solutions_04.R` for full code. 
 
 # Support Vector Machines (SVM) {background-color="#D9DBDB"}
 
@@ -648,13 +698,13 @@ There may be other hyperparameters, depending on the choice of kernel.
 
 ::: {.fragment} 
 
-See `examples/example_04.R` for full code.
+See `examples/example_05.R` for full code.
 
 :::
 
-## Exercise 4
+## Exercise 5
 
-Open `exercises/exercise_04.R` for prompts. You can also use `examples/example_04.R` as a starting point.
+Open `exercises/exercise_05.R` for prompts. You can also use `examples/example_05.R` as a starting point.
 
 * Specify a support vector machine using `svm_rbf()` (or one of the other `svm_*` functions if you're feeling confident!)
 
@@ -665,7 +715,8 @@ Open `exercises/exercise_04.R` for prompts. You can also use `examples/example_0
 * Look at some other evaluation metrics.
 
 ```{r}
-#| label: ex-4-timer
+#| label: ex-5-timer
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 countdown::countdown(minutes = 10,
                     color_border = "#b20e10",
                     color_text = "#b20e10",
@@ -680,7 +731,10 @@ countdown::countdown(minutes = 10,
 
 . . . 
 
-See `exercise_solutions/exercise_solutions_04.R` for full code.
+<<<<<<< HEAD
+See `exercise_solutions/exercise_solutions_03.R` for full code. 
+=======
+See `exercise_solutions/exercise_solutions_05.R` for full code.
 
 ## Quiz
 
@@ -705,6 +759,7 @@ There are many machine learning topics and {tidymodels} functions we haven't cov
 * Explainability and validation
 
 * ...
+>>>>>>> 70d83fdf02ec33bc6714b0e52a7eac4a9c33c71f
 
 ## Additional resources
 
@@ -732,9 +787,9 @@ There are many machine learning topics and {tidymodels} functions we haven't cov
 
 ## Workshop resources
 
-* GitHub: [github.com/nrennie/r-pharma-2023-tidymodels](https://github.com/nrennie/r-pharma-2023-tidymodels)
+* GitHub: [github.com/nrennie/rss-2024-tidymodels](https://github.com/nrennie/rss-2024-tidymodels)
 
-* Slides: [nrennie.github.io/r-pharma-2023-tidymodels](https://nrennie.github.io/r-pharma-2023-tidymodels)
+* Slides: [nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)
 
 
 ## 

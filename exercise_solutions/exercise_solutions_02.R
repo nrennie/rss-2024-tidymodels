@@ -1,46 +1,29 @@
 
-# Specify the model -------------------------------------------------------
-# use the `logistic_reg` and `set_engine` functions
-ex_lasso_tune_spec <- logistic_reg(penalty = tune(), mixture = 1) |>
-  set_engine("glmnet")
+# Load {tidymodels} -------------------------------------------------------
+
+library(tidymodels)
+tidymodels_prefer()
 
 
-# Tune the model ----------------------------------------------------------
+# Split into training and testing -----------------------------------------
+# Choose your own proportion for the split!
 
-# Fit lots of values using `tune_grid()`
-ex_lasso_grid <- tune_grid(
-  add_model(ex_wf, ex_lasso_tune_spec),
-  resamples = ex_folds,
-  grid = grid_regular(penalty(), levels = 50)
-)
+set.seed(20240902)
+movies_split <- initial_split(model_data, prop = 0.7)
+movies_train <- training(movies_split)
+movies_test <- testing(movies_split)
 
-# Choose the best value using `select_best()`
-ex_lasso_highest_roc_auc <- ex_lasso_grid |>
-  select_best("roc_auc")
-
-
-# Fit the final model -----------------------------------------------------
-# use the `finalize_workflow` function and `add_model`
-ex_final_lasso <- finalize_workflow(
-  add_model(ex_wf, ex_lasso_tune_spec),
-  ex_lasso_highest_roc_auc
-)
+# Create cross validation folds
+# Choose how many splits and how many repeats!
+movies_folds <- vfold_cv(movies_train, v = 10, repeats = 2)
 
 
-# Model evaluation --------------------------------------------------------
-# use `last_fit()` and `collect_metrics()`
-last_fit(ex_final_lasso, ex_split) |>
-  collect_metrics()
+# Build a recipe ----------------------------------------------------------
 
-# which variables were most important?
-ex_final_lasso |>
-  fit(ex_train) |>
-  extract_fit_parsnip() |>
-  vip::vi(lambda = ex_lasso_highest_roc_auc$penalty) |>
-  mutate(
-    Importance = abs(Importance),
-    Variable = fct_reorder(Variable, Importance)
-  ) |>
-  ggplot(mapping = aes(x = Importance, y = Variable, fill = Sign)) +
-  geom_col()
+# Use the `recipe()` function and the `step_*() functions`
+movies_recipe <- recipe(rating ~ ., data = movies_train) |> 
+  step_normalize(c(length, votes))
 
+# create a workflow and add the recipe
+movies_wf <- workflow() |> 
+  add_recipe(movies_recipe)

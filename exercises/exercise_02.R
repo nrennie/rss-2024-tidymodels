@@ -1,23 +1,21 @@
 
-# Specify the model -------------------------------------------------------
-# use the `logistic_reg` and `set_engine` functions
+# Load {tidymodels} -------------------------------------------------------
 
 
-# Tune the model ----------------------------------------------------------
-
-# Fit lots of values using `tune_grid()`
-
-# Choose the best value using `select_best()`
 
 
-# Fit the final model -----------------------------------------------------
-# use the `finalize_workflow` function and `add_model`
+# Split into training and testing -----------------------------------------
+# Choose your own proportion for the split!
 
 
-# Model evaluation --------------------------------------------------------
-# use `last_fit()` and `collect_metrics()`
+# Create cross validation folds
+# Choose how many splits and how many repeats!
 
 
-# which variables were most important?
+# Build a recipe ----------------------------------------------------------
 
+# Use the `recipe()` function and the `step_*() functions`
+
+
+# create a workflow and add the recipe
 
