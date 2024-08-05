@@ -11,7 +11,7 @@ This interactive workshop will introduce some common machine learning techniques
 ### Prerequisites
 
 * Comfortable with common statistical concepts, including regression models.
-* Confortable with simple data manipulation in R.
+* Comfortable with simple data manipulation in R.
 * Able to access R on your laptop either via local installation or through [Posit Cloud](https://posit.cloud/).
 
 ### Packages required
