@@ -54,6 +54,7 @@ I hope you end up with more questions than answers after this workshop!
 :::
 ::: {.column}
 
+![](images/qr-code-slides.png){fig-align="center" fig-alt="QR code" width=70%}
 
 :::
 
@@ -67,8 +68,10 @@ I hope you end up with more questions than answers after this workshop!
 
   * tidymodels
   * glmnet
-  * ggplot2movies
+  * openintro
   * tidyverse (optional)
+  
+## Data
 
 We'll use data from the {openintro} R package:
 
@@ -261,7 +264,7 @@ countdown::countdown(minutes = 5,
 
 . . . 
 
-See `exercise_solutions/exercise_solutions_02.R` on GitHub for full code.
+See `exercise_solutions/exercise_solutions_01.R` on GitHub for full code.
 
 # LASSO regression {background-color="#D9DBDB"}
 
@@ -615,18 +618,6 @@ See `exercise_solutions/exercise_solutions_04.R` for full code.
 
 # Additional Information {background-color="#D9DBDB"}
 
-## Learning more about machine learning
-
-There are many machine learning topics and {tidymodels} functions we haven't covered today. As well as learning about the technical details of models and how to write code, it's important to learn about:
-
-* Ethics
-
-* Bias and discrimination
-
-* Explainability and validation
-
-* ...
-
 ## Additional resources
 
 ::: columns
@@ -667,13 +658,12 @@ There are many machine learning topics and {tidymodels} functions we haven't cov
 
 {{< fa brands linkedin >}} [nicola-rennie](https://www.linkedin.com/in/nicola-rennie/)
 
-{{< fa brands mastodon >}} [\@fosstodon.org/\@nrennie](https://fosstodon.org/deck/@nrennie)
+{{< fa brands mastodon >}} [fosstodon.org/\@nrennie](https://fosstodon.org/deck/@nrennie)
 
 {{< fa brands github >}} [nrennie](https://github.com/nrennie)
 
 {{< fa globe >}} [nrennie.rbind.io](https://nrennie.rbind.io/)
 
-{{< fa briefcase >}} [chicas.lancaster-university.uk](https://chicas.lancaster-university.uk/)
 
 :::
 ::: {.column}
