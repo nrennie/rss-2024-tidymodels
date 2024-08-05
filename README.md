@@ -24,4 +24,4 @@ This interactive workshop will introduce some common machine learning techniques
 
 * GitHub: [github.com/nrennie/rss-2024-tidymodels](https://github.com/nrennie/rss-2024-tidymodels)
 
-* Slides: [nrennie.github.io/rss-2024-tidymodels](https://nrennie.github.io/rss-2024-tidymodels)
+* Slides: [nrennie.rbind.io/rss-2024-tidymodels](https://nrennie.rbind.io/rss-2024-tidymodels)
