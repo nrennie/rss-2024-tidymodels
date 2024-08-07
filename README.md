@@ -16,9 +16,11 @@ This interactive workshop will introduce some common machine learning techniques
 
 ### Packages required
 
-* {tidymodels}
-* {dplyr} (for data wrangling)
-* {openintro} (for data)
+* tidymodels
+* glmnet
+* ranger
+* openintro (for data)
+* dplyr, tidyr, ggplot2, forcats (optional)
 
 ### Useful Links
 
