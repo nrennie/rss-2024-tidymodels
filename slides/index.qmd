@@ -69,7 +69,7 @@ I hope you end up with more questions than answers after this workshop!
   * glmnet
   * ranger
   * openintro (for data)
-  * dplyr (optional)
+  * dplyr, tidyr, ggplot2, forcats (optional)
   
 ## Data
 
@@ -231,13 +231,13 @@ See `examples/example_01.R` for full code.
 
 Open `exercises/exercise_01.R` for prompts.
 
-* Load the `resume` data from {openintro}.
+* Load the `resume` data from {openintro}. Do you need to do any pre-processing?
 
 * Perform the initial split (choose your own proportion!).
 
 * Create some cross-validation folds.
 
-* Build a recipe and workflow. The outcome is `received_callback`.
+* Build a recipe and workflow. The outcome is `received_callback`. 
 
 ```{r}
 #| label: ex-1-timer

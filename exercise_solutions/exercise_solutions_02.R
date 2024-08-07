@@ -1,46 +1,48 @@
 
 # Specify the model -------------------------------------------------------
 # use the `logistic_reg` and `set_engine` functions
-ex_lasso_tune_spec <- logistic_reg(penalty = tune(), mixture = 1) |>
+lasso_tune_spec <- logistic_reg(penalty = tune(), mixture = 1) |>
   set_engine("glmnet")
 
 
 # Tune the model ----------------------------------------------------------
 
 # Fit lots of values using `tune_grid()`
-ex_lasso_grid <- tune_grid(
-  add_model(ex_wf, ex_lasso_tune_spec),
-  resamples = ex_folds,
+lasso_grid <- tune_grid(
+  add_model(wf, lasso_tune_spec),
+  resamples = resume_folds,
   grid = grid_regular(penalty(), levels = 50)
 )
 
 # Choose the best value using `select_best()`
-ex_lasso_highest_roc_auc <- ex_lasso_grid |>
-  select_best("roc_auc")
+lasso_highest_roc_auc <- lasso_grid |>
+  select_best(metric = "roc_auc")
 
 
 # Fit the final model -----------------------------------------------------
 # use the `finalize_workflow` function and `add_model`
-ex_final_lasso <- finalize_workflow(
-  add_model(ex_wf, ex_lasso_tune_spec),
-  ex_lasso_highest_roc_auc
+final_lasso <- finalize_workflow(
+  add_model(wf, lasso_tune_spec),
+  lasso_highest_roc_auc
 )
 
 
 # Model evaluation --------------------------------------------------------
 # use `last_fit()` and `collect_metrics()`
-last_fit(ex_final_lasso, ex_split) |>
+last_fit(final_lasso, resume_split) |>
   collect_metrics()
 
 # which variables were most important?
-ex_final_lasso |>
-  fit(ex_train) |>
+library(ggplot2)
+final_lasso |>
+  fit(resume_train) |>
   extract_fit_parsnip() |>
-  vip::vi(lambda = ex_lasso_highest_roc_auc$penalty) |>
+  vip::vi(lambda = lasso_highest_roc_auc$penalty) |>
   mutate(
     Importance = abs(Importance),
-    Variable = fct_reorder(Variable, Importance)
+    Variable = forcats::fct_reorder(Variable, Importance)
   ) |>
+  filter(Importance > 0) |> 
   ggplot(mapping = aes(x = Importance, y = Variable, fill = Sign)) +
   geom_col()
 
