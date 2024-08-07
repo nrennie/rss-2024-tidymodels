@@ -6,7 +6,6 @@ format:
   LUstyle-revealjs:
     self-contained: true
     footer: "[nrennie.rbind.io/rss-2024-tidymodels](https://nrennie.rbind.io/rss-2024-tidymodels)"
-bibliography: references.bib
 ---
 
 # Welcome!
@@ -68,8 +67,9 @@ I hope you end up with more questions than answers after this workshop!
 
   * tidymodels
   * glmnet
-  * openintro
-  * tidyverse (optional)
+  * ranger
+  * openintro (for data)
+  * dplyr (optional)
   
 ## Data
 
@@ -81,16 +81,7 @@ We'll use data from the {openintro} R package:
 #| eval: false
 library(openintro) 
 View(smoking)
-```
-
-You'll also need the following packages:
-
-```{r}
-#| label: packages
-#| echo: true
-#| eval: false
-library(dplyr)
-library(tidymodels)
+View(resume)
 ```
 
 # Getting started with \{tidymodels\} {background-color="#D9DBDB"}
@@ -240,13 +231,13 @@ See `examples/example_01.R` for full code.
 
 Open `exercises/exercise_01.R` for prompts.
 
-* Load the `smoking` data
+* Load the `resume` data from {openintro}.
 
-* Perform the initial split (choose your own proportion!)
+* Perform the initial split (choose your own proportion!).
 
-* Create some cross-validation folds
+* Create some cross-validation folds.
 
-* Build a recipe and workflow
+* Build a recipe and workflow. The outcome is `received_callback`.
 
 ```{r}
 #| label: ex-1-timer
@@ -495,126 +486,6 @@ countdown::countdown(minutes = 10,
 . . . 
 
 See `exercise_solutions/exercise_solutions_03.R` for full code. 
-
-# Support Vector Machines (SVM) {background-color="#D9DBDB"}
-
-## What are Support Vector Machines?
-
-::: columns
-::: {.column}
-
-Support Vector Machines (SVMs) draw a decision boundary that best separates two groups.
-
-:::
-::: {.column}
-
-![](images/svm_01.png){fig-align="center" fig-alt="Scatter plot with two groups" width=100%}
-:::
-:::
-
-## What are Support Vector Machines?
-
-::: columns
-::: {.column}
-
-Support Vector Machines (SVMs) draw a decision boundary that best separates two groups.
-
-:::
-::: {.column}
-
-![](images/svm_02.png){fig-align="center" fig-alt="Scatter plot with two groups with dividing line" width=100%}
-:::
-:::
-
-## Types of SVM
-
-There are different types of *kernel* functions, including:
-
-::: columns
-::: {.column width="33%" .center}
-Linear
-
-`svm_linear()`
-
-![](images/svm_03.png){fig-align="center" fig-alt="linear kernel plot" width=100%}
-:::
-
-::: {.column width="33%" .center}
-Polynomial
-
-`svm_poly()`
-
-![](images/svm_04.png){fig-align="center" fig-alt="polynomial kernel plot" width=100%}
-:::
-
-::: {.column width="33%" .center}
-Radial Basis Functions
-
-`svm_rbf()`
-
-![](images/svm_05.png){fig-align="center" fig-alt="RBF kernel plot" width=100%}
-:::
-
-:::
-
-## Hyperparameters in SVMs
-
-**Cost**
-
-* Higher value: emphasises fitting the data
-
-* Lower value: prioritises avoiding overfitting
-
-**Gamma** (shape and smoothness of decision boundary)
-
-* Higher value: more flexible boundaries
-
-* Lower value: simpler boundaries
-
-There may be other hyperparameters, depending on the choice of kernel.
-
-## Support Vector Machines in {tidymodels}
-
-### Live demo!
-
-<br><br>
-
-::: {.fragment} 
-
-See `examples/example_04.R` for full code.
-
-:::
-
-## Exercise 4
-
-Open `exercises/exercise_04.R` for prompts. You can also use `examples/example_04.R` as a starting point.
-
-* Specify a support vector machine using `svm_rbf()` (or one of the other `svm_*` functions if you're feeling confident!)
-
-* Tune the `cost()` hyperparameter using the cross-validation folds.
-
-* Fit the final model and evaluate it.
-
-* Look at some other evaluation metrics.
-
-```{r}
-#| label: ex-4-timer
-countdown::countdown(minutes = 10,
-                    color_border = "#b20e10",
-                    color_text = "#b20e10",
-                    color_running_text = "white",
-                    color_running_background = "#b20e10",
-                    color_finished_text = "#b20e10",
-                    color_finished_background = "white",
-                    top = 0,
-                    margin = "1.2em",
-                    font_size = "2em")
-```
-
-. . . 
-
-See `exercise_solutions/exercise_solutions_04.R` for full code. 
-
 
 # Additional Information {background-color="#D9DBDB"}
 

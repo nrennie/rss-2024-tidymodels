@@ -3,22 +3,27 @@
 
 pkgs <- c(
   "tidymodels", "tidyverse", "glmnet", "vip",
-  "ranger", "kernlab", "ggplot2movies"
+  "ranger", "openintro"
 )
 install.packages(pkgs)
 
 
+# Load R packages ---------------------------------------------------------
 
-# Load the movies data --------------------------------------------
+library(openintro)
+library(tidymodels)
+tidymodels_prefer()
 
-# Subset columns to remove the `title`, `budget`, `mpaa`, and `r?` columns.
+# Load data ---------------------------------------------------------------
 
-# Create a binary outcome from the `rating` column.
+# Data: resume
 
-# Ensure all binary columns are factors.
+# Split into training and testing -----------------------------------------
 
+# choose a different split proportion?
 
+# Create cross validation folds
 
-# Inspect variables -------------------------------------------------------
+# Build a recipe ----------------------------------------------------------
 
-
+# Outcome: received_callback
